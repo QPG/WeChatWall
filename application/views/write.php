@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<?php foreach ($res as $k => $v) { ?>
 			<div class="item">
 				<p><?=$v['text'];?></p>
-				<input type="checkbox" />
+				<input type="checkbox" name="<?=$v['qid'];?>" />
 			</div>
 		<?php } ?>
 		<a class="submit_btn"></a>
