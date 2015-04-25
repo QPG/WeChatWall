@@ -5,4 +5,4 @@ body{font-family:"Microsoft Yahei",Arial;}
 /*navbar*/
 .header{height:60px;background:rgb(1, 76, 133);}
 /*footer*/
-.footer{height:80px;background:rgb(1, 76, 133);}
+.footer{height:60px;line-height:50px;background:rgb(1, 76, 133);color:#fff;font-size:13px;text-align:center;margin-top:30px;}

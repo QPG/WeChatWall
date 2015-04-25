@@ -19,24 +19,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="main">
 		<div class="q_header">
 			<p class="title"><?=$info['title'];?></p>
-			<p class="organizer"><?=$info['organizer'];?></p>
-			<p class="about"><?=$info['about'];?></p>
-			<p class="time"><?=$info['start_time'];?>---<?=$info['end_time'];?></p>
+			<div class="about"><p><?=$info['about'];?></p></div>
+			<p class="organizer">发起人：<?=$info['organizer'];?></p>
+		</div>
+		<div class="q_rule">
+			<?=$info['rule'];?>
+			<p class="time">投票时间：<?=$info['start_time'];?>---<?=$info['end_time'];?></p>
 		</div>
 		<div class="q_list">
-		<form>
+		<form method="post" id="form_write" action="<?=site_url('write/handle/?id='.$fid);?>">
 		<?php foreach ($res as $k => $v) { ?>
 			<div class="item">
 				<?php if($v['imgurl']!='0'){ ?>
-				<div class="img_show"><img src="<?= $v['imgurl'];?>"></div>
+				<div class="img_show"><img src="<?= get_img_url($v['imgurl']);?>"></div>
 				<?php } ?>
-				<div class="text_show"><p><?=$v['text'];?></p></div>
-				<input type="checkbox" name="<?=$v['qid'];?>" />
+				<div class="text_show"><p><?=$v['title'];?></p><p><?=$v['text'];?></p></div>
+				<div class="check_show"><input type="checkbox" name="option[<?=$v['qid'];?>]"/></div>
 			</div>
 		<?php } ?>
-		<a class="submit_btn">投票</a>
+		<a class="submit_btn" href="javascript:execute()">投票</a>
 		</form>
 		</div>
+	</div>
+	<div class="footer">
+		<p>Copyright 2014 TWT Studio. All rights reserved</p>
 	</div>
 
 </body>
