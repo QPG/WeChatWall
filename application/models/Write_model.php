@@ -20,4 +20,9 @@ class Write_model extends CI_Model {
 		$this->db->insert('twt_vote_reply',$data);
 	}
 
+	public function is_exist($fid,$uid){
+		$res = $this->db->get_where('twt_vote_reply',array('fid'=>$fid,'uid'=>$uid));
+		return $res ? true : false;
+	}
+
 }

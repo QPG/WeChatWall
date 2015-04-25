@@ -9,7 +9,6 @@ class Write extends CI_controller {
 		parent::__construct();
 		session_start();
 		$this->load->model('write_model');
-
 	}
 
 	public function index(){
@@ -29,15 +28,18 @@ class Write extends CI_controller {
 	}
 
 	public function handle(){
-		$data['fid'] = $_SESSION['openid'];
+		$data['uid'] = $_SESSION['openid'];
 		unset($_SESSION['user']);
+		$data['fid'] = intval($_GET['id']);
+		if($this->write_model->is_exist($data['fid'],$data['uid'])){
+			session_destroy();
+			exit('你已经投过票了');
+		}
 		$data['create_time'] = time();
-		$data['qid'] = intval($_GET['id']);
 		foreach($_POST['option'] as $k => $v){
-			$data['option'] = $k;
+			$data['qid'] = $k;
 			$this->write_model->submit_insert($data);
 		}
-		session_destroy();
 		
 	}
 
