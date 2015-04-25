@@ -17,15 +17,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="user"></div>
 	</div>
 	<div class="main">
+		<div class="q_header">
+			<p class="title"><?=$info['title'];?></p>
+			<p class="organizer"><?=$info['organizer'];?></p>
+			<p class="about"><?=$info['about'];?></p>
+			<p class="time"><?=$info['start_time'];?>---<?=$info['end_time'];?></p>
+		</div>
+		<div class="q_list">
 		<form>
 		<?php foreach ($res as $k => $v) { ?>
 			<div class="item">
-				<p><?=$v['text'];?></p>
+				<?php if($v['imgurl']!='0'){ ?>
+				<div class="img_show"><img src="<?= $v['imgurl'];?>"></div>
+				<?php } ?>
+				<div class="text_show"><p><?=$v['text'];?></p></div>
 				<input type="checkbox" name="<?=$v['qid'];?>" />
 			</div>
 		<?php } ?>
-		<a class="submit_btn"></a>
+		<a class="submit_btn">投票</a>
 		</form>
+		</div>
 	</div>
 
 </body>
