@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Write extends CI_controller {
+class Visit extends CI_Controller {
 
 	protected $openid=false;
 
@@ -12,6 +12,16 @@ class Write extends CI_controller {
 	}
 
 	public function index(){
+		$this->load->database();
+		$this->db->select('fid,title,organizer,about,start_time,end_time');
+		$this->db->from('twt_vote_list');
+		$this->db->where('isshow',1);
+		$res = $this->db->get()->result_array();
+		$data['res'] = $res;
+		$this->load->view('vote/visit',$data);
+	}
+
+	public function write(){
 		$this->openid = strval($_GET['user']);
 		$_SESSION['openid'] = $this->openid;
 		if(!$this->openid){
@@ -24,7 +34,7 @@ class Write extends CI_controller {
 		$data['fid'] = $fid;
 		$data['res'] = $this->write_model->get_question($fid);
 		$data['info'] = $this->write_model->get_info($fid);
-		$this->load->view('write',$data);
+		$this->load->view('vote/write',$data);
 	}
 
 	public function handle(){
@@ -40,7 +50,11 @@ class Write extends CI_controller {
 			$data['qid'] = $k;
 			$this->write_model->submit_insert($data);
 		}
-		
 	}
+
+	public function manage(){
+		$this->load->view('vote/manage');
+	}
+
 
 }
