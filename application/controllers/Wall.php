@@ -15,8 +15,12 @@ class Wall extends CI_Controller {
 	}
 
 	public function ajax_request(){
+		$rid = intval($_GET['id']);
+		$time = intval($_GET['time']);
 		$request = array();
-		
-
+		$request['rid'] = $rid;
+		$request['time'] = $time;
+		$msg = $this->Wall_model->get_msg($request);
+		echo 1;
 	}
 }

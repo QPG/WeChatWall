@@ -2,7 +2,7 @@ var wall = {
 	'delaytime' : 8000,
 	'heart' :  function(){
 		var $this = this;
-		$.getJSON('./index.php?c=site&a=entry&id=19&do=json&m=microwall',function(e){
+		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=1&time=111111111',function(e){
 			alert(1);
 		})
 		var timer = setTimeout(function(){$this.heart();},$this.delaytime);
@@ -25,4 +25,7 @@ var wall = {
 window.onload = function(){
 	var sidebar = document.getElementsByClassName('side_div')[0],sideblock = document.getElementsByClassName('msg_block')[0];
 	sideblock.onmouseover = function(){ sidebar.style.right = '0';}
+	sidebar.onmouseout = function(){ sidebar.style.right = '-80px';}
+
+	wall.heart();
 }
