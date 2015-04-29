@@ -20,6 +20,7 @@
 	<div class="side_item"><a href="#" id="status">暂停</a></div>
 	<div class="side_item"><a href="">二维码</a></div>
 	<div class="side_item"><a href="">抽奖</a></div>
+	<div class="side_item"><a href="javascript:screenModel()">全屏</a></div>
 </div>
 
 <div class="msg_block"></div>
@@ -27,5 +28,12 @@
 <script src="<?=base_url().'static/wall/js/jquery.min.js';?>"></script>
 <script src="<?=base_url().'static/wall/js/action.js';?>"></script>
 <script src="<?=base_url().'static/wall/js/wall.js';?>"></script>
+<script type="text/javascript">
+window.onload = function(){
+	sidebar();
+	wall.clock();
+	wall.heart();
+}
+</script>
 </body>
 </html>

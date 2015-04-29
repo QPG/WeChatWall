@@ -21,6 +21,10 @@ class Wall extends CI_Controller {
 		$request['rid'] = $rid;
 		$request['time'] = $time;
 		$msg = $this->Wall_model->get_msg($request);
-		echo 1;
+		echo json_encode($msg);
+	}
+
+	public function lottery(){
+		
 	}
 }

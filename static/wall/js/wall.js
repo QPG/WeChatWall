@@ -2,8 +2,9 @@ var wall = {
 	'delaytime' : 8000,
 	'heart' :  function(){
 		var $this = this;
-		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=1&time=111111111',function(e){
-			alert(1);
+		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=1&time=1430229400',function(e){
+			//var mss = JSON.parse(e);
+			$('#msg_list').append(wall.buildItem(e));	
 		})
 		var timer = setTimeout(function(){$this.heart();},$this.delaytime);
 	},
@@ -18,14 +19,13 @@ var wall = {
 			$this.clock();
 		},1000);
 	},
-	'newItem':function(){
-		
-	},
-}
-window.onload = function(){
-	var sidebar = document.getElementsByClassName('side_div')[0],sideblock = document.getElementsByClassName('msg_block')[0];
-	sideblock.onmouseover = function(){ sidebar.style.right = '0';}
-	sidebar.onmouseout = function(){ sidebar.style.right = '-80px';}
+	'buildItem' : function(message){
+		var html = '<div class="talkList" id="msg_'+message['id']+'" style="height:auto;">' +
+			'<div class="userPic"><img src="'+message['headimg']+'"><span class="userName">'+message['nickname']+'</span></div>' +
+			'<div class="msgBox"><span class="msgCnt" style="font-size:70px;line-height:140px;">' +
+			message['message'] + '</span></div></div>';
+		return html;
+	}
 
-	wall.heart();
 }
+

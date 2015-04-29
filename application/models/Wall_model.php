@@ -12,7 +12,8 @@ class Wall_model extends CI_Model {
 	}
 
 	public function get_msg($request){
-		$this->db->from('wall_msg')->where($request);
+		//isshow字段：0待上墙 1已上墙 3待审核 4拒绝上墙
+		$this->db->from('wall_msg')->where(array('rid'=>$request['rid'],'create_time >'=>$request['time'],'isshow'=>'0'))->order_by('create_time','desc')->limit(1);
 		return $result = $this->db->get()->row_array();
 	}
 }
