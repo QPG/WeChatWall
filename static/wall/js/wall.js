@@ -4,7 +4,7 @@ var wall = {
 		var $this = this;
 		var msg_list = document.getElementById('msg_list');
 
-		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=1&time=1430229400',function(e){
+		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=1&time=1430229400',function(e){ //getJson接收的字符串已解析
 			if(msg_list.childNodes.length != 4){
 				if(msg_list.childNodes.length != 0){
 					i = msg_list.childNodes.length+1;
@@ -13,7 +13,8 @@ var wall = {
 					$('#msg_list').append(wall.buildItem(e,1));	
 				}
 			}else{
-				$().insertBefore();
+				$this.changeLastNode(e);
+				msg_list.insertBefore(msg_list.lastChild,msg_list.firstChild);
 			}	
 		})
 		var timer = setTimeout(function(){$this.heart();},$this.delaytime);
@@ -32,9 +33,20 @@ var wall = {
 	'buildItem' : function(message,i){
 		var html = '<div class="talkList msg_'+ i +'">' +
 			'<div class="userPic"><img src="'+message['headimg']+'"><span class="userName">'+message['nickname']+'</span></div>' +
-			'<div class="msgBox"><span class="msgCnt" style="font-size:70px;line-height:140px;">' +
+			'<div class="msgBox"><span class="msgCnt">' +
 			message['message'] + '</span></div></div>';
 		return html;
+	},
+	'changeLastNode' : function(message){
+		var msg_list = document.getElementById('msg_list'),
+			lastNode = msg_list.lastChild,
+			imgNode = lastNode.childNodes[0].childNodes[0],
+			nameNode = lastNode.childNodes[0].childNodes[1],
+			msgNode = lastNode.childNodes[1].childNodes[0];
+
+		nameNode.innerHTML = message['nickname'];
+		msgNode.innerHTML = message['message'];
+		imgNode.setAttribute('src',message['headimg']);
 	}
 
 }
