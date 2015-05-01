@@ -5,7 +5,7 @@
 			<div class="topic">
 				<h1 class="msg_tit">搜索公众号 <strong class="red"><?=$setting['account']?></strong></h1>
 				<h1 class="msg_tit" style="display:none;">添加公众号 <strong class="red"><?=$setting['account'];?></strong></h1>
-				<span class="addCnt">发送 {loop $setting['keyword'] $row}<span class="red Topic_cnt">{$row['content']}</span>，{/loop} 发送内容，自动上墙</span>
+				<span class="addCnt">回复关键字<span class="red Topic_cnt"><?=$setting['keyword']?></span>，发送内容，自动上墙</span>
 			</div>
 		</div>
 	</div>
@@ -24,9 +24,9 @@
 
 <div class="msg_block"></div>
 
-<script src="<?=base_url().'static/wall/js/jquery.min.js';?>"></script>
-<script src="<?=base_url().'static/wall/js/action.js';?>"></script>
-<script src="<?=base_url().'static/wall/js/wall.js';?>"></script>
+<script src="<?=base_url().'static/wall/display/js/jquery.min.js';?>"></script>
+<script src="<?=base_url().'static/wall/display/js/action.js';?>"></script>
+<script src="<?=base_url().'static/wall/display/js/wall.js';?>"></script>
 <script type="text/javascript">
 window.onload = function(){
 	sidebar();

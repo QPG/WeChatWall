@@ -64,12 +64,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '',
 	'username' => 'root',
 	'password' => 'root',
 	'database' => 'twt_vote',
 	'dbdriver' => 'mysqli',
-	'dbprefix' => 'twt_',
+	'dbprefix' => 'ims_',
 	'pconnect' => FALSE,
 	'db_debug' => TRUE,
 	'cache_on' => FALSE,

@@ -21,10 +21,17 @@ class Wall extends CI_Controller {
 		$request['rid'] = $rid;
 		$request['time'] = $time;
 		$msg = $this->Wall_model->get_msg($request);
+		if($msg['headimg']==''){
+			$msg['headimg'] = base_url().'static/wall/display/images/avatar.png';
+		}
 		echo json_encode($msg);
 	}
 
 	public function lottery(){
 		
+	}
+
+	public function mng(){
+		$this->load->view('wall/mng/index');
 	}
 }

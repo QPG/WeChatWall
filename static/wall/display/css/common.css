@@ -2,7 +2,7 @@ body{font-family: MicroSoft YaHei,simHei;font-size: 36px;background:#a87480 url(
 a{text-decoration: none;}
 
 #wallMain{width: 1024px;overflow: hidden;margin: 0 auto;position: relative;}
-.topbox {height:140px; background: url('../images/top.png') no-repeat 0 0;}
+.topbox {height:140px; background: url('../images/top.png?2') no-repeat 30px 30px;background-size:240px;}
 .topbox_l {padding-top:15px; margin-left:400px;}
 .topbox_l .red {color:#ef2e2e;}
 .timefont{ font-family:"UniDreamLED"; font-size:60px; color:#E72C00; vertical-align:middle; background:#EFFBFF;}
