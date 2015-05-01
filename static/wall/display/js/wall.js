@@ -4,18 +4,20 @@ var wall = {
 		var $this = this;
 		var msg_list = document.getElementById('msg_list');
 
-		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=1&time=1430229400',function(e){ //getJson接收的字符串已解析
-			if(msg_list.childNodes.length != 4){
-				if(msg_list.childNodes.length != 0){
-					i = msg_list.childNodes.length+1;
-					$('#msg_list div:first').before(wall.buildItem(e,i));
+		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=21&time=1430453671',function(e){ //getJson接收的字符串已解析
+			if(e != 'null'){
+				if(msg_list.childNodes.length != 4){
+					if(msg_list.childNodes.length != 0){
+						i = msg_list.childNodes.length+1;
+						$('#msg_list div:first').before(wall.buildItem(e,i));
+					}else{
+						$('#msg_list').append(wall.buildItem(e,1));	
+					}
 				}else{
-					$('#msg_list').append(wall.buildItem(e,1));	
+					$this.changeLastNode(e);
+					msg_list.insertBefore(msg_list.lastChild,msg_list.firstChild);
 				}
-			}else{
-				$this.changeLastNode(e);
-				msg_list.insertBefore(msg_list.lastChild,msg_list.firstChild);
-			}	
+			}
 		})
 		var timer = setTimeout(function(){$this.heart();},$this.delaytime);
 	},

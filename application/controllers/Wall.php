@@ -9,7 +9,7 @@ class Wall extends CI_Controller {
 	}
 
 	public function index(){
-		$rid = 1;
+		$rid = 21;
 		$data['setting'] = $this->Wall_model->get_setting($rid);
 		$this->load->view('wall/display/index',$data);
 	}
@@ -21,10 +21,13 @@ class Wall extends CI_Controller {
 		$request['rid'] = $rid;
 		$request['time'] = $time;
 		$msg = $this->Wall_model->get_msg($request);
+		if($msg['id']==''){
+			exit('null');
+		}
 		if($msg['headimg']==''){
 			$msg['headimg'] = base_url().'static/wall/display/images/avatar.png';
 		}
-		echo json_encode($msg);
+			echo json_encode($msg);
 	}
 
 	public function lottery(){
@@ -32,6 +35,16 @@ class Wall extends CI_Controller {
 	}
 
 	public function mng(){
-		$this->load->view('wall/mng/index');
+		$rid = 21;
+		$setting = $this->Wall_model->get_setting($rid);
+		if(!$setting['review']){
+			exit('审核未开启');
+		}
+		$data['list'] = $this->Wall_model->get_review_list($rid);
+		$this->load->view('wall/mng/index',$data);
+	}
+
+	public function mng_ajax(){
+		
 	}
 }

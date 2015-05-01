@@ -1,0 +1,10 @@
+body{background-color:#6E6F6D;}
+.list_wrapper{min-height:700px;background-color:#fff;margin-top:60px;margin-bottom:120px;border-radius:8px;padding:15px 10px;}
+.btn{margin-right:5px;}
+.table tr th:nth-child(1){width:5%;}
+.table tr th:nth-child(2){width:10%;}
+.table tr th:nth-child(3){width:10%;}
+.table tr th:nth-child(4){width:35%;}
+.table tr th:nth-child(5){width:10%;}
+.table tr th:nth-child(6){width:30%;}
+.image_msg{width:150px;}
