@@ -29,7 +29,7 @@
 <script src="<?=base_url().'static/wall/display/js/wall.js';?>"></script>
 <script type="text/javascript">
 window.onload = function(){
-	sidebar();
+	sidebar_run();
 	wall.clock();
 	wall.heart();
 }

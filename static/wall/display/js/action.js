@@ -1,8 +1,34 @@
-function sidebar(){
-	var sidebar = document.getElementsByClassName('side_div')[0],sideblock = document.getElementsByClassName('msg_block')[0];
-	sideblock.onmouseover = function(){ sidebar.style.right = '0';}
-	sidebar.onmouseout = function(){ sidebar.style.right = '-80px';}
+function sidebar_run(){
+	var sidebar = document.getElementsByClassName('side_div')[0],
+		sideblock = document.getElementsByClassName('msg_block')[0];
+	sideblock.onmouseover = function(){sidebar_show();}
+	sidebar.onmouseout = function(){sidebar_hide();}
+
+	function sidebar_show(){
+		//未支持IE
+		var side_right = document.defaultView.getComputedStyle(sidebar)['right'],
+			side_right_int = parseInt(side_right.slice(0,-2)); //必须用slice方法控制起始
+		if(side_right_int >= 0){
+			clearTimeout(timer);
+		}else{
+			sidebar.style.right = side_right_int + 10 +'px';
+			timer = setTimeout(function(){sidebar_show();},20);
+		}
+	}
+
+	function sidebar_hide(){
+		var side_right = document.defaultView.getComputedStyle(sidebar)['right'],
+			side_right_int = parseInt(side_right.slice(0,-2));
+		if(side_right_int <= (-80)){
+			sidebar.style.right = '';//为空即删除
+			clearTimeout(timer);
+		}else{
+			sidebar.style.right = side_right_int - 10 +'px';
+			timer = setTimeout(function(){sidebar_hide();},20);
+		}
+	}
 }
+
 
 function screenModel(){
 	var e_button = document.getElementsByClassName('side_item')[4];
