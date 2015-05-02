@@ -25,7 +25,7 @@ class Wall_model extends CI_Model {
 	}
 
 	public function mng_ajax($rid,$time){
-		$this->db->from('wall_msg')->where(array('rid'=>$rid,'create_time>'=>$time,'isshow'=>2));
+		$this->db->from('wall_msg')->where(array('rid'=>$rid,'create_time>'=>$time,'isshow'=>2))->order_by('id','desc');
 		return $this->db->get()->result_array();
 	}
 

@@ -1,18 +1,19 @@
 function sidebar_run(){
 	var sidebar = document.getElementsByClassName('side_div')[0],
-		sideblock = document.getElementsByClassName('msg_block')[0];
-	sideblock.onmouseover = function(){sidebar_show();}
-	sidebar.onmouseout = function(){sidebar_hide();}
+		sideblock = document.getElementsByClassName('msg_block')[0],
+		show_timer = '',hide_timer = '';
+	sideblock.onmouseover = function(){clearTimeout(hide_timer);sidebar_show();}
+	sidebar.onmouseout = function(){clearTimeout(show_timer);sidebar_hide();}
 
 	function sidebar_show(){
 		//未支持IE
-		var side_right = document.defaultView.getComputedStyle(sidebar)['right'],
+		var side_right = document.defaultView.getComputedStyle(sidebar)['right'], //获取来自CSS文件的样式
 			side_right_int = parseInt(side_right.slice(0,-2)); //必须用slice方法控制起始
 		if(side_right_int >= 0){
-			clearTimeout(timer);
+			clearTimeout(show_timer);
 		}else{
 			sidebar.style.right = side_right_int + 10 +'px';
-			timer = setTimeout(function(){sidebar_show();},20);
+			show_timer = setTimeout(function(){sidebar_show();},20);
 		}
 	}
 
@@ -21,10 +22,10 @@ function sidebar_run(){
 			side_right_int = parseInt(side_right.slice(0,-2));
 		if(side_right_int <= (-80)){
 			sidebar.style.right = '';//为空即删除
-			clearTimeout(timer);
+			clearTimeout(hide_timer);
 		}else{
 			sidebar.style.right = side_right_int - 10 +'px';
-			timer = setTimeout(function(){sidebar_hide();},20);
+			hide_timer = setTimeout(function(){sidebar_hide();},20);
 		}
 	}
 }

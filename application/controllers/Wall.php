@@ -41,6 +41,7 @@ class Wall extends CI_Controller {
 			exit('审核未开启');
 		}
 		$data['list'] = $this->Wall_model->get_review_list($rid);
+		$data['lastTime'] = current($data['list'])['create_time'];
 		$this->load->view('wall/mng/index',$data);
 	}
 
@@ -57,7 +58,8 @@ class Wall extends CI_Controller {
 	}
 
 	public function mng_delete(){
-
+		$id = intval($_GET['id']);
+		$this->Wall_model->mng_delete($id);
 	}
 
 	public function mng_blacklist(){
