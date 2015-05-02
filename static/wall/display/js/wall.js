@@ -5,7 +5,7 @@ var wall = {
 		var msg_list = document.getElementById('msg_list');
 
 		$.getJSON('http://localhost/MobileVote/wall/ajax_request?id=21&time=1430453671',function(e){ //getJson接收的字符串已解析
-			if(e != 'null'){
+			if(e['id'] != null){
 				if(msg_list.childNodes.length != 4){
 					if(msg_list.childNodes.length != 0){
 						i = msg_list.childNodes.length+1;
@@ -33,10 +33,20 @@ var wall = {
 		},1000);
 	},
 	'buildItem' : function(message,i){
+		var content = '';
+		if(message['type']=='0'){
+			if(message['message'].length>12){
+				content = '<span style="font-size:40px;line-height:50px;">'+message['message']+'</span>';
+			}else{
+				content = '<span>'+message['message']+'</span>';
+			}
+		}else{
+			content = '<img src="'+message['message']+'">';
+		}
 		var html = '<div class="talkList msg_'+ i +'">' +
 			'<div class="userPic"><img src="'+message['headimg']+'"><span class="userName">'+message['nickname']+'</span></div>' +
 			'<div class="msgBox"><span class="msgCnt">' +
-			message['message'] + '</span></div></div>';
+			content + '</span></div></div>';
 		return html;
 	},
 	'changeLastNode' : function(message){

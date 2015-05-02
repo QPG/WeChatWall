@@ -16,7 +16,7 @@
 				<th><?=$v['message'];?></th>
 				<?php } ?>
 				<th><?php echo intval((time()-$v['create_time'])/60).'min'; ?></th>
-				<th><button type="button" class="btn-xs btn btn-success">Allow</button><button type="button" class="btn-xs btn btn-warning">Delete</button><button type="button" class="btn-xs btn btn-danger">BlackList</button></th>
+				<th><button type="button" class="btn-xs btn btn-success" onclick="btn_allow(this)">Allow</button><button type="button" class="btn-xs btn btn-warning" onclick="btn_delete(this)">Delete</button><button type="button" class="btn-xs btn btn-danger" onclick="btn_blacklist(this)">BlackList</button></th>
 				</tr>
 				<?php }?>
 			</table>

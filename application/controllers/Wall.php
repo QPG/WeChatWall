@@ -22,7 +22,7 @@ class Wall extends CI_Controller {
 		$request['time'] = $time;
 		$msg = $this->Wall_model->get_msg($request);
 		if($msg['id']==''){
-			exit('null');
+			exit('{"id":null}');
 		}
 		if($msg['headimg']==''){
 			$msg['headimg'] = base_url().'static/wall/display/images/avatar.png';
@@ -45,6 +45,23 @@ class Wall extends CI_Controller {
 	}
 
 	public function mng_ajax(){
-		
+		$rid = intval($_GET['id']);
+		$time = intval($_GET['time']);
+		$result = $this->Wall_model->mng_ajax($rid,$time);
+		echo json_encode($result);
+	}
+	/* TODO 权限判断 */
+	public function mng_allow(){
+		$id = intval($_GET['id']);
+		$this->Wall_model->mng_allow($id);
+	}
+
+	public function mng_delete(){
+
+	}
+
+	public function mng_blacklist(){
+		$id = intval($_GET['id']);
+		var_dump($this->Wall_model->mng_blacklist($id));
 	}
 }

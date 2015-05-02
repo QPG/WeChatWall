@@ -23,4 +23,22 @@ class Wall_model extends CI_Model {
 		$this->db->from('wall_msg')->where(array('rid'=>$rid,'isshow'=>'2'))->order_by('create_time','desc');
 		return $result = $this->db->get()->result_array();
 	}
+
+	public function mng_ajax($rid,$time){
+		$this->db->from('wall_msg')->where(array('rid'=>$rid,'create_time>'=>$time,'isshow'=>2));
+		return $this->db->get()->result_array();
+	}
+
+	public function mng_allow($id){
+		$this->db->where('id',$id)->update('wall_msg',array('isshow'=>'0'));
+	}
+
+	public function mng_delete($id){
+		$this->db->where('id',$id)->update('wall_msg',array('isshow'=>'3'));
+	}
+
+	public function mng_blacklist($id){
+		$openid = $this->db->select('openid')->where('id',$id)->get('wall_msg')->row_array()['openid'];
+		$this->db->where('openid',$openid)->update('wall_msg',array('isshow'=>'3'));
+	}
 }
