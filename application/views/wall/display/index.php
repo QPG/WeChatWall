@@ -14,15 +14,7 @@
 	</div>
 </div>
 
-<div class="side_div">
-	<div class="side_item"><a href="javascript:;" id="remaintime" style="color:red; font-weight:600;">4</a></div>
-	<div class="side_item"><a href="#" id="status">暂停</a></div>
-	<div class="side_item"><a href="">二维码</a></div>
-	<div class="side_item"><a href="">抽奖</a></div>
-	<div class="side_item"><a href="javascript:screenModel()">全屏</a></div>
-</div>
-
-<div class="msg_block"></div>
+<?php require('sidebar.php'); ?>
 
 <script src="<?=base_url().'static/wall/display/js/jquery.min.js';?>"></script>
 <script src="<?=base_url().'static/wall/display/js/action.js';?>"></script>

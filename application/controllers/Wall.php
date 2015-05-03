@@ -32,8 +32,12 @@ class Wall extends CI_Controller {
 
 	public function lottery(){
 		
+		$this->load->view('wall/display/lottery');
 	}
 
+	/***
+	*@单独后台管理
+	***/
 	public function mng(){
 		$rid = 21;
 		$setting = $this->Wall_model->get_setting($rid);

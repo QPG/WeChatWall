@@ -1,9 +1,15 @@
 function sidebar_run(){
 	var sidebar = document.getElementsByClassName('side_div')[0],
 		sideblock = document.getElementsByClassName('msg_block')[0],
-		show_timer = '',hide_timer = '';
+		show_timer = '',hide_timer = ''
+		side_item = document.getElementsByClassName('side_item');
 	sideblock.onmouseover = function(){clearTimeout(hide_timer);sidebar_show();}
+	sidebar.onmouseover = function(){clearTimeout(hide_timer);sidebar_show();}
 	sidebar.onmouseout = function(){clearTimeout(show_timer);sidebar_hide();}
+/*	for(var i in side_item){
+		side_item[i].onmouseover = function(){clearTimeout(hide_timer);sidebar_show();}
+
+	}*/
 
 	function sidebar_show(){
 		//未支持IE

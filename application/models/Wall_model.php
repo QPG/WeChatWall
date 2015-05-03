@@ -41,4 +41,8 @@ class Wall_model extends CI_Model {
 		$openid = $this->db->select('openid')->where('id',$id)->get('wall_msg')->row_array()['openid'];
 		$this->db->where('openid',$openid)->update('wall_msg',array('isshow'=>'3'));
 	}
+
+	public function lottery(){
+		$this->db->select('nickname','headimg')->get('wall_msg');
+	}
 }
