@@ -30,11 +30,12 @@ class Wall_model extends CI_Model {
 	}
 
 	public function mng_allow($id){
-		$this->db->where('id',$id)->update('wall_msg',array('isshow'=>'0'));
+		$res = $this->db->where('id',$id)->update('wall_msg',array('isshow'=>'0'));
+		return $res;
 	}
 
 	public function mng_delete($id){
-		$this->db->where('id',$id)->update('wall_msg',array('isshow'=>'3'));
+		return $this->db->where('id',$id)->update('wall_msg',array('isshow'=>'3'));
 	}
 
 	public function mng_blacklist($id){
@@ -43,6 +44,20 @@ class Wall_model extends CI_Model {
 	}
 
 	public function lottery($rid){
-		return $this->db->select('nickname,headimg')->where('rid',$rid)->get('wall_msg')->result_array();
+		return $this->db->select('id,nickname,headimg')->where('rid',$rid)->get('wall_msg')->result_array();
+	}
+
+	public function lottery_award($id){
+		$this->db->select('nickname,openid')->where('id',$id);
+	}
+
+	public function validate($username,$password){
+		$row = $this->db->select('rid,password')->where('username',$username)->get('wall_admin')->row_array();
+		$pwd = $row['password'];
+		if($pwd == md5($password)){
+			return $row['rid'];
+		}else{
+			return false;
+		}
 	}
 }

@@ -9,7 +9,7 @@ class Wall extends CI_Controller {
 	}
 
 	public function index(){
-		$rid = 21;
+		$rid = intval($_GET['id'])?intval($_GET['id']):exit('no access!');
 		$data['setting'] = $this->Wall_model->get_setting($rid);
 		$this->load->view('wall/display/index',$data);
 	}
@@ -40,13 +40,19 @@ class Wall extends CI_Controller {
 	*@单独后台管理
 	***/
 	public function mng(){
-		$rid = 21;
+		session_start();
+		if(!$this->is_login()){
+			return $this->load->view('wall/mng/login');
+		}
+
+		$rid = intval($_GET['id'])?intval($_GET['id']):exit('no access!');
 		$setting = $this->Wall_model->get_setting($rid);
 		if(!$setting['review']){
 			exit('审核未开启');
 		}
 		$data['list'] = $this->Wall_model->get_review_list($rid);
-		$data['lastTime'] = current($data['list'])['create_time'];
+		//没有满足条件者返回empty array 可做0/1判断
+		$data['lastTime'] = $data['list']?current($data['list'])['create_time']:1430656946;
 		$this->load->view('wall/mng/index',$data);
 	}
 
@@ -59,20 +65,46 @@ class Wall extends CI_Controller {
 	/* TODO 权限判断 */
 	public function mng_allow(){
 		$id = intval($_GET['id']);
-		$this->Wall_model->mng_allow($id);
+		$res = $this->Wall_model->mng_allow($id);
+		echo $res;
 	}
 
 	public function mng_delete(){
 		$id = intval($_GET['id']);
-		$this->Wall_model->mng_delete($id);
+		echo $this->Wall_model->mng_delete($id);
 	}
 
 	public function mng_blacklist(){
 		$id = intval($_GET['id']);
-		var_dump($this->Wall_model->mng_blacklist($id));
+		$this->Wall_model->mng_blacklist($id);
+		echo 1;
 	}
 
 	public function lottery_report(){
+		$id = intval($_GET['id']);
 		
+	}
+
+	private function is_login(){
+		return isset($_SESSION['admin']) ? true : false;
+	}
+
+	public function validate(){
+		$username = strval($_POST['username']);
+		$password = strval($_POST['password']);
+		if($rid = $this->Wall_model->validate($username,$password)){
+			session_start();
+			$_SESSION['admin'] = $username;
+			header('Location:'.site_url('wall/mng?id='.$rid));
+		}else{
+			exit('wrong!');
+		}
+	}
+
+	public function logout(){
+		session_start();
+		unset($_SESSION['admin']);
+		session_destroy();
+		header('Location:'.site_url('wall/mng'));
 	}
 }

@@ -7,7 +7,7 @@ function get_json(){
 			if(e != 'null'){
 				var i;
 				for( i in e){
-					$('tbody tr:nth-child(2)').before(buildItem(e[i]));
+					$('tbody tr:nth-child(1)').after(buildItem(e[i]));
 					lastTime = e[i]['create_time'];
 				}
 			}
@@ -27,19 +27,31 @@ function buildItem(message){
 	return html;
 }
 
-function btn_allow(e){
-	var id = parseInt(e.parentNode.parentNode.getAttribute('data-id'));
+function btn_allow(r){
+	var id = parseInt(r.parentNode.parentNode.getAttribute('data-id'));
 	$.getJSON('http://localhost/MobileVote/wall/mng_allow?id='+id,function(e){
-
+		if(e == 1){
+			table_body.removeChild(r.parentNode.parentNode);
+		}
 	})
 }
 
-function btn_delete(e){
-
+function btn_delete(r){
+	var id = parseInt(r.parentNode.parentNode.getAttribute('data-id'));
+	$.getJSON('http://localhost/MobileVote/wall/mng_delete?id='+id,function(e){
+		if(e == 1){
+			table_body.removeChild(r.parentNode.parentNode);
+		}
+	})
 }
 
-function btn_blacklist(e){
-
+function btn_blacklist(r){
+	var id = parseInt(r.parentNode.parentNode.getAttribute('data-id'));
+	$.getJSON('http://localhost/MobileVote/wall/mng_blacklist?id='+id,function(e){
+		if(e == 1){
+			table_body.removeChild(r.parentNode.parentNode);
+		}
+	})
 }
 
 function btn_manual(){

@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 list_wrapper">
 			<div class="panel panel-primary user_panel"><div class="panel-body">
-				<span>Refresh Mode</span><button type="button" class="btn-xs btn btn-primary" onclick="btn_manual(this)">Manual</button><button type="button" class="btn-xs btn btn-info" onclick="btn_auto(this)">Automatic</button>
+				<span style="float:left;"><a href="<?=site_url('wall/logout');?>">LOG OUT</a></span><span>Refresh Mode</span><button type="button" class="btn-xs btn btn-primary" onclick="btn_manual(this)">Manual</button><button type="button" class="btn-xs btn btn-info" onclick="btn_auto(this)">Automatic</button>
 			</div></div>
 			<table class="table table-striped table-hover">
 				<tr class="warning"><th>ID</th><th>NickName</th><th>Type</th><th>Content</th><th>Interval</th><th>Review</th></tr>
