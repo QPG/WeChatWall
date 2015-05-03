@@ -31,8 +31,9 @@ class Wall extends CI_Controller {
 	}
 
 	public function lottery(){
-		
-		$this->load->view('wall/display/lottery');
+		$rid = intval($_GET['id']);
+		$data['list'] = json_encode($this->Wall_model->lottery($rid));
+		$this->load->view('wall/display/lottery',$data);
 	}
 
 	/***
@@ -69,5 +70,9 @@ class Wall extends CI_Controller {
 	public function mng_blacklist(){
 		$id = intval($_GET['id']);
 		var_dump($this->Wall_model->mng_blacklist($id));
+	}
+
+	public function lottery_report(){
+		
 	}
 }
