@@ -22,7 +22,6 @@
 <script type="text/javascript">
 window.onload = function(){
 	sidebar_run();
-	wall.clock();
 	wall.heart();
 }
 </script>

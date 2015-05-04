@@ -32,6 +32,7 @@ class Wall extends CI_Controller {
 
 	public function lottery(){
 		$rid = intval($_GET['id']);
+		$data['setting'] = $this->Wall_model->get_setting($rid);
 		$data['list'] = json_encode($this->Wall_model->lottery($rid));
 		$this->load->view('wall/display/lottery',$data);
 	}
@@ -39,12 +40,22 @@ class Wall extends CI_Controller {
 	/***
 	*@单独后台管理
 	***/
-	public function mng(){
+
+
+	private function is_login(){
 		session_start();
+		if(isset($_SESSION['admin'])){
+			return true;
+		}else{
+			session_destroy();
+			return false;
+		}
+	}
+
+	public function mng(){
 		if(!$this->is_login()){
 			return $this->load->view('wall/mng/login');
 		}
-
 		$rid = intval($_GET['id'])?intval($_GET['id']):exit('no access!');
 		$setting = $this->Wall_model->get_setting($rid);
 		if(!$setting['review']){
@@ -57,6 +68,9 @@ class Wall extends CI_Controller {
 	}
 
 	public function mng_ajax(){
+		if(!$this->is_login()){
+			exit('no access');
+		}
 		$rid = intval($_GET['id']);
 		$time = intval($_GET['time']);
 		$result = $this->Wall_model->mng_ajax($rid,$time);
@@ -64,29 +78,38 @@ class Wall extends CI_Controller {
 	}
 	/* TODO 权限判断 */
 	public function mng_allow(){
+		if(!$this->is_login()){
+			exit('no access');
+		}
 		$id = intval($_GET['id']);
 		$res = $this->Wall_model->mng_allow($id);
 		echo $res;
 	}
 
 	public function mng_delete(){
+		if(!$this->is_login()){
+			exit('no access');
+		}
 		$id = intval($_GET['id']);
 		echo $this->Wall_model->mng_delete($id);
 	}
 
 	public function mng_blacklist(){
+		if(!$this->is_login()){
+			exit('no access');
+		}
 		$id = intval($_GET['id']);
 		$this->Wall_model->mng_blacklist($id);
 		echo 1;
 	}
 
 	public function lottery_report(){
+		if(!$this->is_login()){
+			exit('no access');
+		}
 		$id = intval($_GET['id']);
-		
-	}
-
-	private function is_login(){
-		return isset($_SESSION['admin']) ? true : false;
+		$order = intval($_GET['order']);
+		$this->Wall_model->lottery_award($id,$order);
 	}
 
 	public function validate(){
@@ -97,7 +120,7 @@ class Wall extends CI_Controller {
 			$_SESSION['admin'] = $username;
 			header('Location:'.site_url('wall/mng?id='.$rid));
 		}else{
-			exit('wrong!');
+			exit('<script>alert("NOT VALIDATED!");window.location = "'.site_url('wall/mng').'";</script>');
 		}
 	}
 

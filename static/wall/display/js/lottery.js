@@ -16,6 +16,7 @@ function start(){
 		award_num++;
 		top_show_num.innerHTML = award_num;
 		addWin(current_num);
+		reportAjax();
 	}
 }
 
@@ -50,5 +51,6 @@ function addWin(id){
 }
 
 function reportAjax(){
-	
+	var id = list_data[current_num]['id'];
+	$.get('http://localhost/MobileVote/wall/lottery_report?id='+id+'&order='+award_num);
 }

@@ -47,8 +47,17 @@ class Wall_model extends CI_Model {
 		return $this->db->select('id,nickname,headimg')->where('rid',$rid)->get('wall_msg')->result_array();
 	}
 
-	public function lottery_award($id){
-		$this->db->select('nickname,openid')->where('id',$id);
+	public function lottery_award($id,$order){
+		$this->db->select('rid,nickname,openid')->where('id',$id);
+		$res = $this->db->get('wall_msg')->row_array();
+		$data = array(
+				'openid' => $res['openid'],
+				'nickname' => $res['nickname'],
+				'create_time' => time(),
+				'order_num' => $order,
+				'rid' => $res['rid']
+			);
+		$this->db->insert('wall_lottery',$data);
 	}
 
 	public function validate($username,$password){
