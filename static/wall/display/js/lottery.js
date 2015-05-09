@@ -4,7 +4,9 @@ var lottery_avatar = document.getElementById('lottery_avatar'),
 	win_list = document.getElementsByClassName('win_list_ul')[0],
 	win_list_last = win_list.lastChild,
 	top_show_num = document.getElementById('num_show');
+//IS_IN 全局判断处于状态START/STOP
 var IS_IN = 0,Timer = '',current_num = '',award_num = 0;
+
 function start(){
 	if(!IS_IN){
 		IS_IN = 1;
@@ -47,10 +49,11 @@ function restart(){
 function addWin(id){
 	var html = '<li><div class="win_user_num"><strong>'+award_num+'</strong></div><div class="win_user_avatar"><img src="'+list_data[id]['headimg']+'"></div><div class="win_user_name"><span>'+list_data[id]['nickname']+'</span></div></li>'
 	$('.win_list_ul').append(html);
-//	list_data.splice(id,1);  从原数组中删除
+	list_data.splice(id,1);  //从原数组中删除
+	total_num --;
 }
 
 function reportAjax(){
 	var id = list_data[current_num]['id'];
-	$.get('http://localhost/MobileVote/wall/lottery_report?id='+id+'&order='+award_num);
+	$.get('http://wx.twtstudio.com/home/index.php/wall/lottery_report?id='+id+'&order='+award_num);
 }

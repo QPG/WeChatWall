@@ -33,8 +33,20 @@ class Wall extends CI_Controller {
 	public function lottery(){
 		$rid = intval($_GET['id']);
 		$data['setting'] = $this->Wall_model->get_setting($rid);
-		$data['list'] = json_encode($this->Wall_model->lottery($rid));
+		$list = $this->Wall_model->lottery($rid);
+		foreach ($list as $k => &$v) { //修改数组元素需要引用赋值
+			if($v['headimg'] == ''){
+				$v['headimg'] = base_url().'static/wall/display/images/avatar.png';
+			}
+		}
+		$data['list'] = json_encode($list);
 		$this->load->view('wall/display/lottery',$data);
+	}
+
+	public function qrcode(){
+		$rid = intval($_GET['id']);
+		$data['setting'] = $this->Wall_model->get_setting($rid);
+		$this->load->view('wall/display/qrcode',$data);
 	}
 
 	/***
@@ -63,7 +75,8 @@ class Wall extends CI_Controller {
 		}
 		$data['list'] = $this->Wall_model->get_review_list($rid);
 		//没有满足条件者返回empty array 可做0/1判断
-		$data['lastTime'] = $data['list']?current($data['list'])['create_time']:1430656946;
+		$crr = current($data['list']);
+		$data['lastTime'] = $data['list'] ? $crr['create_time'] : 1430656946;
 		$this->load->view('wall/mng/index',$data);
 	}
 
@@ -104,9 +117,6 @@ class Wall extends CI_Controller {
 	}
 
 	public function lottery_report(){
-		if(!$this->is_login()){
-			exit('no access');
-		}
 		$id = intval($_GET['id']);
 		$order = intval($_GET['order']);
 		$this->Wall_model->lottery_award($id,$order);

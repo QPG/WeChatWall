@@ -13,14 +13,14 @@ class Wall_model extends CI_Model {
 
 	public function get_msg($request){
 		//isshow字段：0待上墙 1已上墙 2待审核 3拒绝上墙
-		$this->db->from('wall_msg')->where(array('rid'=>$request['rid'],'create_time >'=>$request['time'],'isshow'=>'0'))->order_by('create_time','desc')->limit(1);
+		$this->db->from('wall_msg')->where(array('rid'=>$request['rid'],'create_time >'=>$request['time'],'isshow'=>'0'))->order_by('id','asc')->limit(1);
 		$result = $this->db->get()->row_array();
 		$this->db->where('id',$result['id'])->update('wall_msg',array('isshow'=>1));
 		return $result;
 	}
 
 	public function get_review_list($rid){
-		$this->db->from('wall_msg')->where(array('rid'=>$rid,'isshow'=>'2'))->order_by('create_time','desc');
+		$this->db->from('wall_msg')->where(array('rid'=>$rid,'isshow'=>'2'))->order_by('id','desc');
 		return $result = $this->db->get()->result_array();
 	}
 
@@ -39,12 +39,13 @@ class Wall_model extends CI_Model {
 	}
 
 	public function mng_blacklist($id){
-		$openid = $this->db->select('openid')->where('id',$id)->get('wall_msg')->row_array()['openid'];
+		$openid = $this->db->select('openid')->where('id',$id)->get('wall_msg')->row_array();
+		$openid = $openid['openid'];
 		$this->db->where('openid',$openid)->update('wall_msg',array('isshow'=>'3'));
 	}
 
 	public function lottery($rid){
-		return $this->db->select('id,nickname,headimg')->where('rid',$rid)->get('wall_msg')->result_array();
+		return $this->db->select('id,nickname,headimg')->where(array('rid' => $rid,'isshow' => 1))->group_by('openid')->get('wall_msg')->result_array();
 	}
 
 	public function lottery_award($id,$order){
