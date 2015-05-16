@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 list_wrapper">
 			<div class="panel panel-primary user_panel"><div class="panel-body">
-				<span style="float:left;"><a href="<?=site_url('wall/logout');?>">LOG OUT</a></span><span>Refresh Mode</span><button type="button" class="btn-xs btn btn-primary" onclick="btn_manual(this)">Manual</button><button type="button" class="btn-xs btn btn-info" onclick="btn_auto(this)">Automatic</button>
+				<span style="float:left;"><a href="<?=site_url('wall/logout');?>">LOG OUT</a></span><span>Refresh Mode</span><button type="button" class="btn-xs btn btn-primary" onclick="run.btn_manual(this)">Manual</button><button type="button" class="btn-xs btn btn-info" onclick="run.btn_auto(this)">Automatic</button>
 			</div></div>
 			<table class="table table-striped table-hover">
 				<tr class="warning"><th>ID</th><th>NickName</th><th>Type</th><th>Content</th><th>Interval</th><th>Review</th></tr>
@@ -19,7 +19,7 @@
 				<td><?=$v['message'];?></td>
 				<?php } ?>
 				<td><?php echo intval((time()-$v['create_time'])/60).'min'; ?></td>
-				<td><button type="button" class="btn-xs btn btn-success" onclick="btn_allow(this)">Allow</button><button type="button" class="btn-xs btn btn-warning" onclick="btn_delete(this)">Delete</button><button type="button" class="btn-xs btn btn-danger" onclick="btn_blacklist(this)">BlackList</button></td>
+				<td><button type="button" class="btn-xs btn btn-success" onclick="run.btn_allow(this)">Allow</button><button type="button" class="btn-xs btn btn-warning" onclick="run.btn_delete(this)">Delete</button><button type="button" class="btn-xs btn btn-danger" onclick="run.btn_blacklist(this,<?="'".$v['openid']."'";?>)">BlackList</button></td>
 				</tr>
 				<?php }?>
 			</table>

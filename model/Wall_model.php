@@ -25,7 +25,7 @@ class Wall_model extends CI_Model {
 	}
 
 	public function mng_ajax($rid,$time){
-		$this->db->from('wall_msg')->where(array('rid'=>$rid,'create_time>'=>$time,'isshow'=>2))->order_by('id','desc');
+		$this->db->from('wall_msg')->where(array('rid'=>$rid,'create_time>'=>$time,'isshow'=>2))->order_by('id','asc');
 		return $this->db->get()->result_array();
 	}
 
@@ -39,9 +39,10 @@ class Wall_model extends CI_Model {
 	}
 
 	public function mng_blacklist($id){
-		$openid = $this->db->select('openid')->where('id',$id)->get('wall_msg')->row_array();
-		$openid = $openid['openid'];
-		$this->db->where('openid',$openid)->update('wall_msg',array('isshow'=>'3'));
+		return $this->db->where('id',$id)->update('wall_msg',array('isshow'=>'3'));
+	//	$openid = $this->db->select('openid')->where('id',$id)->get('wall_msg')->row_array();
+	//	$openid = $openid['openid'];
+	//	$this->db->where('openid',$openid)->update('wall_msg',array('isshow'=>'3'));
 	}
 
 	public function lottery($rid){

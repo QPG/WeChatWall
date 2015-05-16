@@ -6,9 +6,9 @@ var wall = {
 		var msg_list = document.getElementById('msg_list');
 
 		$.ajax({
-			url : 'http://wx.twtstudio.com/home/index.php/wall/ajax_request?id=21&time=1430453671',
+			url : 'http://'+document.domain+'/home/index.php/wall/ajax_request?id=21&time=1430453671',
 			success : function(data){
-//		$.getJSON('http://x.twtstudio.com/home/index.php/wall/ajax_request?id=21&time=1430453671',function(e,st){ //getJson接收的字符串已解析
+//		$.getJSON('http://wx.twtstudio.com/home/index.php/wall/ajax_request?id=21&time=1430453671',function(e,st){ //getJson接收的字符串已解析
 				e = JSON.parse(data);
 				if(e['id'] != null){
 					if(msg_list.childNodes.length != 4){
